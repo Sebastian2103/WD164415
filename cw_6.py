@@ -69,6 +69,10 @@ import math
 
 # w = np.reshape(w, newshape=(81,1))
 
+#w = np.reshape(w, newshape=(1,81))
+
+#w = np.reshape(w, newshape=(3,27))
+
 # wielkość macierzy musi się zgadzać z ilością elementów dlatego w przykładzie 9 * 9 = 81 = 27 * 3
 
 
