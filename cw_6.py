@@ -11,13 +11,16 @@ import math
 
 #ZADANIE 2
 
-# a2 = np.arange(5, 5*9+1, 5).reshape((3, 3))
-# b2 = np.arange(16).reshape((4, 4))
+a = np.array([[3, 7, 5], [6, 1, 9], [2, 7, 8]])
+b = np.array([[5, 1, 6, 8], [3, 6, 2, 7], [9, 3, 7, 5], [4, 4, 2, 1]])
 
-# print(np.amin(a2, axis=0))
-# print(np.amin(a2, axis=1))
-# print(np.amin(b2, axis=0))
-# print(np.amin(b2, axis=1))
+print(a)
+print(b)
+
+print(np.amin(a, axis=0))
+print(np.amin(a, axis=1))
+print(np.amin(b, axis=0))
+print(np.amin(b, axis=1))
 
 
 #ZADANIE 3
@@ -46,49 +49,51 @@ import math
 
 #ZADANIE 7
 
-# print (a+b)
+# dodawanie = np.add(a,b)
+# print(dodawanie)
 
 #ZADANIE 8
 #
 # a = np.arange(9).reshape((3,3))
 # for i in a:
 #     print(i)
+#     print("")
 
 #ZADANIE 9
 
-# a = np.arange(9).reshape((3,3))
-# for i in a.flat:
-#     print(i)
+# a = np.array([[3, 7, 5], [6, 1, 9], [2, 7, 8]])
+# for b in a.flat:
+#     print(b)
+#     print("")
 # zadanie 10
 
-# w = np.arange(81).reshape((9, 9))
-# print(w)
-
-# w = np.reshape(w, newshape=(27,3))
-# print(w)
-
-# w = np.reshape(w, newshape=(81,1))
-
-#w = np.reshape(w, newshape=(1,81))
-
-#w = np.reshape(w, newshape=(3,27))
+# macierz = np.arange(0,81,1).reshape(9,9)
+# print(macierz)
+#
+# macierz_1 = macierz.reshape(3,27)
+# print(macierz_1)
+# macierz_2 = macierz.reshape(27,3)
+# print(macierz_2)
+# macierz_3 = macierz.reshape(81,1)
+# print(macierz_3)
+# macierz_4 = macierz.ravel()
+# print(macierz_4)
 
 # wielkość macierzy musi się zgadzać z ilością elementów dlatego w przykładzie 9 * 9 = 81 = 27 * 3
 
 
 # zadanie 11
 
-# o = np.arange(12).reshape((3, 4))
-# o2 = np.reshape(o, newshape=(4, 3))
-# o3 = np.reshape(o, newshape=(2, 6))
-
-# for i in o.flat:
-#     print(i)
-
-# for i in o2.flat:
-#     print(i)
-
-# for i in o3.flat:
-#     print(i)
+a = np.array([3, 7, 5, 6, 1, 9, 2, 7, 8, 6, 3, 6])
+print(a)
+macierz_1 = a.reshape(3, 4)
+print(macierz_1)
+print(macierz_1.ravel())
+macierz_2 = macierz_1.reshape(4,3)
+print(macierz_2)
+print(macierz_2.ravel())
+macierz_3 = macierz_1.reshape(2,6)
+print(macierz_3)
+print(macierz_3.ravel())
 
 # wyniki są takie same
