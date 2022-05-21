@@ -1,107 +1,53 @@
 import numpy as np
-
-#ZADANIE1
-
-x = np.arange(4, 84, 4)
-print(x)
-
-#ZADANIE2
-
-x = np.array([5.0, 6.6, 7.5, 9.25])
-y = x.astype("int32")
-print(y)
-
-#ZADANIE3
-
-
-def fun(n):
-    x = np.array([2**i for i in range(1, n*n+1)])
-    return x.reshape(n, n)
-
-
-print(fun(4))
-
-#ZADANIE4
-
-
-def fun(x, y):
-    return np.logspace(1, y, num=y, base=x)
-
-
-print(fun(2, 4))
-
-#ZADANIE5
-
+import pandas as pd
 import random
 
-def fun(n):
-    y = []
-    for x in range(n):
-        y.append(random.randint(0, 100))
-    y.reverse()
-    x = np.diag(y, 2)
-    return x
+# zad1,2
+plik = pd.ExcelFile('imiona.xlsx')
+df = pd.read_excel(plik, header=0)
 
+print(df[df.Liczba > 1000])
+print('')
+print(df[df.Imie == 'SEBASTIAN'])
+print('')
+print(df.Liczba.sum())
+print('')
+grupa = df[df.Rok < 2006]
+print(grupa.Liczba.sum())
+grupa = df[df.Rok < 2006].groupby('Rok').agg({'Liczba': ['sum']})
+print(grupa)
+print('')
 
-print(fun(3))
+print(df.sort_values('Liczba', ascending=False).groupby(['Rok', 'Plec']).nth(0))
+print(df.sort_values('Liczba', ascending=False).groupby(['Rok', 'Plec']).first())
 
-#ZADANIE6
+new_df = df.sort_values('Liczba', ascending=False).groupby(['Rok', 'Plec'])
+for index, group in enumerate(new_df, start=1):
+    print(f"{index} {group[0]}")
+    print(f" {group[1].iloc[0]['Imie']}", end='')
+    print(f" {group[1].iloc[0]['Liczba']}")
+print('')
+print("Chłopiec")
+print(df[df['Plec'] == 'M'].groupby(['Imie']).agg({'Liczba': ['sum']}).sort_values(('Liczba', 'sum'),
+                                                                                   ascending=False).iloc[0])
+print("Dziewczynka")
+print(df[df['Plec'] == 'K'].groupby(['Imie']).agg({'Liczba': ['sum']}).sort_values(('Liczba', 'sum'),
+                                                                                   ascending=False).iloc[0])
 
-x = np.array([list("akslop"), list("irlwki"), list("łóbwał"), list("fwruak"),list("aksfzd"),list("yafgsy")])
-print(x)
-
-#ZADANIE7
-
-
-def fun(n):
-    a = np.diag([2 for x in range(1, n + 1)])
-    p = 4
-    for i in range(1, n):
-        y = np. diag([p for x in range(1, n+1-i)], i)
-        z = np.diag([p for x in range(1, n + 1 - i)], -i)
-        a += z + y
-        p += 2
-    print(a)
-
-
-fun(3)
-
-#ZADANIE8
-
-
-def fun(tablica, kierunek):
-    if kierunek == "pion":
-        if (len(tablica.shape) == 2 and tablica.shape[1] % 2 == 1) or \
-                (len(tablica.shape) == 1 and tablica.shape[0] % 2 == 1):
-            print("Ilość kolumn nie pozwala na operację")
-        else:
-            if len(tablica.shape) == 2:
-                x = tablica.shape[1]/2
-                y = tablica[:, :int(x)]
-                z = tablica[:, int(x):]
-                return y, z
-            else:
-                x = tablica.shape[0]/2
-                y = tablica[:, :int(x)]
-                z = tablica[:, int(x):]
-                return y, z
-    elif kierunek == "poziom":
-        if (len(tablica.shape) == 2 and tablica.shape[0] % 2 == 1) or len(tablica.shape) == 1:
-            print("Ilość wierszy nie pozwala na operację")
-        else:
-            x = tablica.shape[0]/2
-            y = tablica[:int(x)]
-            z = tablica[int(x):]
-            return y, z
-
-
-a = np.array([[4,4], [5,5]])
-print(fun(a, "pion"))
-
-#ZADANIE9
-
-wyraz = 10
-r = 10
-x = np.arange(wyraz, wyraz + 24 * r + 1, r)
-y = x.reshape(5, 5)
-print(y)
+# df = pd.read_csv('zamowienia.csv', header=0, sep=';', decimal='.')
+#
+# print(df['Sprzedawca'].unique())
+# print('')
+# print(df.sort_values('Utarg', ascending=False).head(5))
+# print('')
+# print(df.groupby('Sprzedawca').size())
+# print('')
+# print(df.groupby('Kraj').agg({'Utarg': ['sum']}))
+# print(df.groupby('Kraj').size())
+# print('')
+# print(df[(df['Kraj'] == 'Polska') & (df['Data zamowienia'] >= '2005-01-01') & (df['Data zamowienia'] <= '2005-12-31')].
+#       agg({'Utarg': ['sum']}))
+# print('')
+# print(df[df['Data zamowienia'].str[:4] == '2004'].agg({'Utarg': ['mean']}))
+# rok_2004 = df[((df[ 'Data zamowienia'] >= '2004-01-01') & (df['Data zamowienia'] <= '2004-12-31'))]
+# rok_2004.to_csv("zamowienia_2004.csv", index=False)
