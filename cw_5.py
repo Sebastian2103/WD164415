@@ -69,40 +69,44 @@ fun(3)
 #zadanie 8
 
 
-def fun(tablica, kierunek):
-    if kierunek == "pion":
-        if (len(tablica.shape) == 2 and tablica.shape[1] % 2 == 1) or \
-                (len(tablica.shape) == 1 and tablica.shape[0] % 2 == 1):
-            print("Ilość kolumn nie pozwala na operację")
-        else:
-            if len(tablica.shape) == 2:
-                x = tablica.shape[1]/2
-                y = tablica[:, :int(x)]
-                z = tablica[:, int(x):]
-                return y, z
-            else:
-                x = tablica.shape[0]/2
-                y = tablica[:, :int(x)]
-                z = tablica[:, int(x):]
-                return y, z
-    elif kierunek == "poziom":
-        if (len(tablica.shape) == 2 and tablica.shape[0] % 2 == 1) or len(tablica.shape) == 1:
-            print("Ilość wierszy nie pozwala na operację")
-        else:
-            x = tablica.shape[0]/2
-            y = tablica[:int(x)]
-            z = tablica[int(x):]
-            return y, z
+def podziel(tab, kierunek='poziomo'):
+    print(tab)
+    if kierunek == 'poziomo':
+        # nieparzysta liczba wierszy
+        if tab.shape[0] % 2 != 0:
+            print("Tablica posiada nieprzystą liczbę wierszy")
+            return
+        p1 = tab[0:int(tab.shape[0]/2), :]
+        p2 = tab[int(tab.shape[0]/2):, :]
+        print("***** część 1 *****")
+        print(p1)
+        print("***** część 2 *****")
+        print(p2)
+    elif kierunek == "pionowo":
+        if tab.shape[1] % 2 != 0:
+            print("Tablica posiada nieprzystą liczbę kolumn")
+            return
+        p1 = tab[:, 0:int(tab.shape[1]/2)]
+        p2 = tab[:, int(tab.shape[1] / 2):]
+        print("***** część 1 *****")
+        print(p1)
+        print("***** część 2 *****")
+        print(p2)
 
 
-a = np.array([[4,4], [5,5]])
-print(fun(a, "pion"))
+podziel(np.arange(36).reshape((6,6)), kierunek='poziomo')
 
 #zadanie 9
 
-wyraz_1 = 10
-r = 10
-x = np.arange(wyraz_1, wyraz_1 + 24 * r + 1, r)
-y = x.reshape(5, 5)
-print(y)
+def n_ty_wyraz(a1, n, r):
+    return a1 + (n-1)*r
 
+
+macierz = np.ones(25, dtype='int32')
+print(macierz)
+for a in range(0, 25, 1):
+    element = n_ty_wyraz(4, a+1, 4)
+    macierz[a] = element
+
+macierz = macierz.reshape((5, 5))
+print(macierz)
